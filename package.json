@@ -1,0 +1,26 @@
+{
+  "name": "restify-paypal-login-demo",
+  "version": "1.0.0",
+  "description": "Demos how to code Login with PayPal in Restify",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egillespie/restify-paypal-login-demo.git"
+  },
+  "author": {
+    "name": "Erik Gillespie",
+    "email": "erik.gillespie@gmail.com",
+    "url": "http://technicalrex.com/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/egillespie/restify-paypal-login-demo/issues"
+  },
+  "homepage": "https://github.com/egillespie/restify-paypal-login-demo#readme",
+  "dependencies": {
+    "restify": "^4.0.4"
+  }
+}
