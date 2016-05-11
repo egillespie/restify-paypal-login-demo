@@ -10,14 +10,34 @@
   <title>Login with PayPal Demo</title>
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <style>
+  html,body,.tall {
+    height: 100%;
+    margin-bottom: 0;
+  }
+  </style>
 </head>
 <body>
-  <div class="jumbotron">
+  <div class="jumbotron tall">
     <div class="container">
       <h1>Login with PayPal Demo</h1>
       <p>To get started, click the button below.</p>
-      <p><a class="btn btn-danger" href="/auth/paypal/request" role="button">Login with PayPal</a></p>
+      <span id="lippButton"></span>
     </div>
   </div>
+  
+  <script src="https://www.paypalobjects.com/js/external/api.js"></script>
+  <script>
+  paypal.use(['login'], function(login) {
+    login.render ({
+      appid: 'AajxlgjQoR93FBvvcn_ewlafywchyxC2ghLMNFD-FLwrRKadzSkNaDTQAi6Ze2etZB46yhOsZJsvWh1f',
+      authend: 'sandbox',
+      scopes: 'openid profile email address',
+      containerid: 'lippButton',
+      locale: 'en-us',
+      returnurl: location.origin + '/auth/paypal/response'
+    });
+  });
+  </script>
 </body>
 </html>
