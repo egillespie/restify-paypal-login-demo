@@ -2,30 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  
   <title>Login with PayPal Demo</title>
-  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <style>
-  html,body,.tall {
-    height: 100%;
-    margin-bottom: 0;
-  }
-  </style>
 </head>
 <body>
-  <div class="jumbotron tall">
-    <div class="container">
-      <h1>Login with PayPal Demo</h1>
-      <p>To get started, click the button below.</p>
-      <span id="lippButton"></span>
-    </div>
+
+  <div class="container">
+    <h1>Login with PayPal Demo</h1>
+    <p>To get started, click the button below.</p>
+    <span id="lippButton"></span>
   </div>
-  
+
   <script src="https://www.paypalobjects.com/js/external/api.js"></script>
   <script>
   paypal.use(['login'], function(login) {
@@ -39,5 +26,6 @@
     });
   });
   </script>
+
 </body>
 </html>
