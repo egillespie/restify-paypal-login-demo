@@ -1,7 +1,10 @@
+var config = require('./config.js'); // todo replace with nconf
+
+var paypal = require('./paypal.js');
+paypal.configure(config.paypal);
+
 var restify = require('restify');
-
 var server = restify.createServer();
-
 server.use(restify.queryParser({ mapParams: false }));
 server.use(restify.bodyParser({ mapParams: false }));
 
