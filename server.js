@@ -3,17 +3,22 @@ var restify = require('restify');
 var server = restify.createServer();
 
 server.use(restify.queryParser({ mapParams: false }));
+server.use(restify.bodyParser({ mapParams: false }));
 
-server.get('/auth/paypal/response', function(req, res, next) {
-  console.log(req.query);
-  res.json({ code: req.query.code });
+server.post('/logins', function(req, res, next) {
+  if (req.body.type === 'paypal') {
+    res.json({ code: req.body.credentials.code });
+  } else {
+    res.header('Location', '/index.html');
+    res.status(401);
+  }
   return next();
 });
 
 // Try to serve a static HTML file if no other path has matched
 server.get(/\/?.*/, restify.serveStatic({
   directory: __dirname,
-  match: /^.*index.html.*$/
+  match: /^.*[A-Za-z]+.html.*$/
 }));
 
 server.listen(8080, function() {

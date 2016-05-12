@@ -1,13 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Logging In with PayPal</title>
-  <script>
-    top.window.opener.location = location.origin + '/auth/paypal/response' + location.search;
-    window.close();
-  </script>
+  <meta charset="utf-8">
+  <title>Welcome!</title>
 </head>
 <body>
-  <p>Please enable JavaScript and try logging in again.</p>
+  <h1>Welcome!</h1>
+  
+  <script src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
+  <script>
+  function getParameterByName(name) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+    var results = regex.exec(location.search);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  }
+
+  $.ajax({
+    type: 'POST',
+    url: '/logins',
+    contentType: 'application/json',
+    dataType: 'json',
+    data : JSON.stringify({
+      type: 'paypal',
+      credentials: {
+        code: getParameterByName('code')
+      }
+    })
+  }).done(function(data) {
+    console.log(data);
+    alert('Welcome!');
+  });
+  </script>
 </body>
 </html>
