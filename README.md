@@ -37,7 +37,7 @@ At the top of the page you will now have a Client ID and Secret that you will ne
 
 Now that you have a PayPal Developer Account and API, you'll need to put your Client ID and Secret in a file named `config.js` in order for this demo to work.
 
-In your `restify-paypal-login-demo/` directory, create a text file named `config.js` and add the following content to it, replacing CLIENT_ID and SECRET, and RETURN_URI with the values from Step 2.
+In your `restify-paypal-login-demo/` directory, create a text file named `config.js` and add the following content to it, replacing CLIENT_ID and SECRET with the values from Step 2.
 
 ```js
 module.exports = {
