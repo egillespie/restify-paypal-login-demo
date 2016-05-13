@@ -5,8 +5,10 @@
   <title>Welcome!</title>
 </head>
 <body>
-  <h1>Welcome!</h1>
-  
+  <h1>Logging In. This may take a minute...</h1>
+  <p></p>
+  <code></code>
+
   <script src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
   <script>
   function getParameterByName(name) {
@@ -29,9 +31,13 @@
         code: getParameterByName('code')
       }
     })
-  }).done(function(data) {
-    console.log(data);
-    alert('Welcome!');
+  }).done(function(data, textStatus, jqXHR) {
+    $('h1').text('You are now logged in!');
+    $('p').text('Email: ' + data.userinfo.email);
+  }).fail(function(jqXHR, textStatus, error) {
+    $('h1').text('D\'oh! Something went wrong.');
+    $('p').text('The server responded with a ' + jqXHR.status + ' status and the following data:');
+    $('code').text(JSON.stringify(jqXHR.responseJSON));
   });
   </script>
 </body>
