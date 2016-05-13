@@ -1,5 +1,7 @@
 var config = require('./config.js'); // todo replace with nconf
 
+var q = require('q');
+
 var paypal = require('paypal-rest-sdk');
 paypal.configure(config.paypal);
 
@@ -8,31 +10,17 @@ var server = restify.createServer();
 server.use(restify.queryParser({ mapParams: false }));
 server.use(restify.bodyParser({ mapParams: false }));
 
-server.post('/logins', function(req, res, next) {
+server.post('/logins', (req, res, next) => {
   if (req.body.type === 'paypal') {
-    paypal.openIdConnect.tokeninfo.create(req.body.credentials.code, function(err, tokeninfo) {
-      if (err) {
-        res.json(500, {
-          step: 'paypal.openIdConnect.tokeninfo.create',
-          message: err.message
+    q.nfcall(paypal.openIdConnect.tokeninfo.create, req.body.credentials.code)
+    .then((tokeninfo) => {
+      return q.nfcall(paypal.openIdConnect.userinfo.get, tokeninfo.access_token)
+        .then((userinfo) => {
+          res.json({ tokeninfo: tokeninfo, userinfo: userinfo });
         });
-      } else {
-        paypal.openIdConnect.userinfo.get(tokeninfo.access_token, function(err, userinfo) {
-          if (err) {
-            res.json(500, {
-              step: 'paypal.openIdConnect.userinfo.get',
-              message: err.message
-            });
-          } else {
-            res.json({
-              code: req.body.credentials.code,
-              tokeninfo: tokeninfo,
-              userinfo: userinfo
-            });
-          }
-        });
-      }
-    });
+    }).fail((err) => {
+      res.json(500, { message: err.message });
+    }).done();
   } else {
     res.header('Location', '/index.html');
     res.status(401);
@@ -46,6 +34,6 @@ server.get(/\/?.*/, restify.serveStatic({
   match: /^.*[A-Za-z]+.html.*$/
 }));
 
-server.listen(8080, function() {
+server.listen(8080, () => {
   console.log('%s listening at %s', server.name, server.url);
 });
